@@ -75,23 +75,23 @@ class BMDA(object):
         self.dependencies = {None: self.node_names}
         self.__build_bbn__(depends_on=None)
 
-    def solve(self, max_iter=100):
+    def solve(self, max_iter=np.inf):
         """
         Solves the k-max coloring problem. Exports the best individual
         along with the bayesian belief network to a pdf file.
 
         :rtype max_iter: int
-        :param max_iter: Max number of iterations.
+        :param max_iter: optional - Max number of iterations. If not provided, will execute until convergence
+            is met.
         """
         i = 1
+        least_fit = []
         while i <= max_iter:
-            sys.stdout.write('\r' + 'Iterations: ' + "%03d" % (i,))
-            i += 1
-
-            self.__sample__()
+            self.__sample__(least_fit)
             fitness = map(lambda x: x.fitness, self.population)
             median = np.median(fitness)
             fittest = list(itertools.ifilter(lambda x: x.fitness >= median, self.population))
+            least_fit = list(itertools.ifilter(lambda x: x.fitness < median, self.population))
 
             # former depends on latter in the tuple
             self.dependencies = self.__search_dependencies__(fittest)
@@ -99,6 +99,9 @@ class BMDA(object):
 
             if self.__has_converged__():
                 break
+
+            sys.stdout.write('\r' + 'Iterations: ' + "%03d" % (i,))
+            i += 1
 
         print '\n'
         self.__export__(i, screen=True, pdf=False, file=True)
@@ -108,7 +111,7 @@ class BMDA(object):
         Build a bayesian belief network and sets it to self._bbn_functions.
 
         :type depends_on: dict
-        :param depends_on: the dependency chain between attributes.
+        :param depends_on: optional - the dependency chain between attributes.
 
         :type fittest: list
         :param fittest: A list of the fittest individuals (denoted as ModelGraph's) for this generation.
@@ -184,32 +187,42 @@ class BMDA(object):
 
         return _str
 
-    def __sample__(self):
+    def __sample__(self, least_fit=[]):
         """
         Assigns colors to the population of graphs.
+
+        :type least_fit: list
+        :param least_fit: optional - the sample to be overrided. If not provided, will replace the whole population.
         """
         sample = dict()
         children = list(itertools.product(self.dependencies[None], [None]))
+
+        if not least_fit:
+            size = self.population_size
+            population = self.population
+        else:
+            size = len(least_fit)
+            population = least_fit
 
         while len(children) > 0:
             # current[1] is the parent; current[0] is the child
             current = children[0]  # first child in the list
 
-            probs = []
+            probabilities = []
             if current[1] not in sample:
                 for color in self.palette:
-                    probs.append(self._bbn_functions[current[0]](color))
+                    probabilities.append(self._bbn_functions[current[0]](color))
             else:
-                _product = itertools.product(self.palette, sample[current[1]])
+                # _product = itertools.product(self.palette, sample[current[1]])
                 raise NameError('implement me!')
 
-            sample[current[0]] = np.random.choice(self.palette, size=self.population_size, replace=True, p=probs)
+            sample[current[0]] = np.random.choice(self.palette, size=size, replace=True, p=probabilities)
             children.remove(current)
 
         # rotates the dictionary
         sample = BMDA.__rotate_dict__(sample, dict_to_list=True)
 
-        for graph, colors in itertools.izip(self.population, sample):
+        for graph, colors in itertools.izip(population, sample):
             graph.colors = colors
 
     @staticmethod
@@ -262,7 +275,7 @@ class BMDA(object):
                 D_strength[(i, j)] = d
 
         A = set(self.node_names)
-        R = set(self.node_names)
+        R = set()
         E = {None: []}
 
         while any(A):
@@ -273,14 +286,19 @@ class BMDA(object):
                 E[None] += [a]
                 break
 
-            links = filter(lambda (f, c): f in R and any(filter(lambda x: x in A, c)), D.items())
+            links = filter(lambda f: f in R and a in D[f], D)
             if any(links):
-                link_strength = map(lambda (f, c): (f, D_strength[(f, c)]), links)
-                Z = 0
+                links_strength = dict(map(lambda f: (D_strength[(f, a)], f), links))
+                strongest = links_strength[max(links_strength)]
+                if strongest in E:
+                    E[strongest] += [a]
+                else:
+                    E[strongest] = [a]
+            else:
+                E[None] += [a]
 
             R |= {a}
 
-        # E = BMDA.__remove_cycles__(E)
         return E
 
     @staticmethod
@@ -480,10 +498,10 @@ class BMDA(object):
 
 def main():
     _nodes = []
-    count_nodes = 4  # max number of nodes = letters in the alphabet
-    population_size = 200  # size of the population
+    count_nodes = 5  # max number of nodes = letters in the alphabet
+    population_size = 1000  # size of the population
     seed = None  # use None for random or any integer for predetermined randomization
-    max_iter = 100  # max iterations to search for optima
+    max_iter = 1000  # max iterations to search for optima
     n_colors = 2  # number of colors to use
 
     random.seed(seed)
@@ -498,7 +516,7 @@ def main():
     colors = Color.randomize_colors(n_colors=n_colors)
 
     mr_mime = BMDA(population_size, my_graph, colors)
-    mr_mime.solve(max_iter=max_iter)
+    mr_mime.solve()
 
 
 main()
