@@ -127,7 +127,7 @@ class ModelGraph(object):
         return self._fitness
 
     @property
-    def count_nodes(self):
+    def n_nodes(self):
         """
         :rtype: int
         :return: Number of nodes in this graph.

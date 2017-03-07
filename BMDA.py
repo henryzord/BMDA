@@ -1,21 +1,19 @@
-__author__ = 'Henry'
-
+# coding=utf-8
 
 import sys
 import copy
-import random
 import graphviz
 import operator
 import itertools
 import numpy as np
 import networkx as nx
 from collections import Counter
-from string import ascii_lowercase
 from matplotlib import pyplot as plt
 
-from Node import Node
 from Color import Color
 from ModelGraph import ModelGraph
+
+__author__ = 'Henry'
 
 
 def declare_function(header, body):
@@ -24,10 +22,8 @@ def declare_function(header, body):
 
     :type header: str
     :param header: The name of the function.
-
     :type body: str
     :param body: The code of the function.
-
     :rtype: function
     :return: A pointer to the function.
     """
@@ -46,9 +42,11 @@ class BMDA(object):
     _bbn_functions = []
     node_names = []
 
-    def __init__(self, population_size, model_graph, colors):
+    last_iteration = None
+
+    def __init__(self, population_size, model_graph, n_colors, max_iter=1000):
         """
-        Initializes the MIMIC algorithm;
+        Initializes the MIMIC Bivariate Marginal Distribution Algorithm.
 
         :type population_size: int
         :param population_size: The size of the population.
@@ -56,14 +54,18 @@ class BMDA(object):
         :type model_graph: ModelGraph
         :param model_graph: The ModelGraph which the population will be copied of.
 
-        :type colors: list
-        :param colors: a list of valid colors to choose from.
+        :type n_colors: int
+        :param n_colors: Number of colors to use in the graph.
+
+        :param max_iter: optional - Max number of iterations. Defaults to 1000.
         """
+
         self.population_size = population_size
         self.model_graph = model_graph
-        self.palette = colors
+        self.palette = Color.randomize_colors(n_colors=n_colors)
 
         self.node_names = self.model_graph.names
+        self.max_iter = max_iter
 
         self.population = np.array(
             map(
@@ -75,18 +77,14 @@ class BMDA(object):
         self.dependencies = {None: self.node_names}
         self.__build_bbn__(depends_on=None)
 
-    def solve(self, max_iter=np.inf):
+    def solve(self):
         """
-        Solves the k-max coloring problem. Exports the best individual
-        along with the bayesian belief network to a pdf file.
+        Solves the k-max coloring problem.
+        """
 
-        :rtype max_iter: int
-        :param max_iter: optional - Max number of iterations. If not provided, will execute until convergence
-            is met.
-        """
         i = 1
         least_fit = []
-        while i <= max_iter:
+        while i <= self.max_iter:
             self.__sample__(least_fit)
             fitness = map(lambda x: x.fitness, self.population)
             median = np.median(fitness)
@@ -101,10 +99,10 @@ class BMDA(object):
                 break
 
             sys.stdout.write('\r' + 'Iterations: ' + "%03d" % (i,))
+            self.last_iteration = i
             i += 1
 
         print '\n'
-        self.__export__(i, screen=True, pdf=False, file=True)
 
     def __build_bbn__(self, depends_on=None, fittest=[]):
         """
@@ -437,14 +435,13 @@ class BMDA(object):
         fitness = map(lambda x: x.fitness, self.population)
         return self.population[np.argmax(fitness)]
 
-    def __export__(self, iterations, screen=True, file=True, pdf=True):
-        _str = 'Finished inference in ' + str(iterations) + ' iterations.\n'
-        _str += 'Evaluations: ' + str(iterations * self.population_size) + '\n'
+    def summary(self, screen=True, file=False, pdf=False):
+        _str = 'Finished inference in ' + str(self.last_iteration) + ' iterations.\n'
+        _str += 'Evaluations: ' + str(self.last_iteration * self.population_size) + '\n'
         _str += 'Population size: ' + str(self.population_size) + '\n'
-        _str += 'Nodes: ' + str(self.model_graph.count_nodes) + '\n'
+        _str += 'Nodes: ' + str(self.model_graph.n_nodes) + '\n'
         _str += 'Colors: ' + str(len(self.palette)) + '\n'
         _str += 'Best individual fitness: ' + str(round(self.__best_individual__().fitness, 2)) + "\n"
-        # _str += 'Marginalization matrix:\n'
 
         print _str
 
@@ -468,7 +465,7 @@ class BMDA(object):
                 wfile.write(_str)
 
         if screen:
-            def plot_bbn():
+            def plot_bayseian_network():
                 plt.figure(1)
                 G = nx.DiGraph()
 
@@ -480,8 +477,10 @@ class BMDA(object):
 
                 layout = nx.circular_layout(G)
                 nx.draw_networkx(G, pos=layout, cmap=plt.get_cmap('jet'), node_color=list(itertools.repeat('cyan', len(self.node_names))))
+                plt.axis('off')
+                plt.title('Bayesian Network')
 
-            def plot_optimal():
+            def plot_best_individual():
                 plt.figure(2)
                 individual = self.__best_individual__()
                 G = nx.Graph()
@@ -490,33 +489,9 @@ class BMDA(object):
                 G.add_edges_from(some_edges)
                 layout = nx.fruchterman_reingold_layout(G)
                 nx.draw_networkx(G, pos=layout, cmap=plt.get_cmap('jet'), node_color=individual.colors.values())
+                plt.axis('off')
+                plt.title('Best Individual')
 
-            plot_bbn()
-            plot_optimal()
+            plot_bayseian_network()
+            plot_best_individual()
             plt.show()
-
-
-def main():
-    _nodes = []
-    count_nodes = 5  # max number of nodes = letters in the alphabet
-    population_size = 1000  # size of the population
-    seed = None  # use None for random or any integer for predetermined randomization
-    max_iter = 1000  # max iterations to search for optima
-    n_colors = 2  # number of colors to use
-
-    random.seed(seed)
-    np.random.seed(seed)
-
-    for char in list(ascii_lowercase)[:count_nodes]:
-        _nodes.append(Node(char))
-
-    my_graph = ModelGraph(neighborhood=_nodes)
-    my_graph.randomize_edges(chain=False)
-
-    colors = Color.randomize_colors(n_colors=n_colors)
-
-    mr_mime = BMDA(population_size, my_graph, colors)
-    mr_mime.solve()
-
-
-main()
