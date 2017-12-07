@@ -9,8 +9,8 @@ import numpy as np
 import networkx as nx
 from collections import Counter
 from matplotlib import pyplot as plt
+from matplotlib import cm
 
-from Color import Color
 from ModelGraph import ModelGraph
 
 __author__ = 'Henry'
@@ -62,7 +62,7 @@ class BMDA(object):
 
         self.population_size = population_size
         self.model_graph = model_graph
-        self.palette = Color.randomize_colors(n_colors=n_colors)
+        self.palette = cm.viridis(np.linspace(0.5, 1., n_colors))
 
         self.node_names = self.model_graph.names
         self.max_iter = max_iter

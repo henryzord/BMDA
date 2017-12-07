@@ -13,28 +13,14 @@ an effective solution is unfeasible.
 import random
 import numpy as np
 
-from Node import Node
 from BMDA import BMDA
 from ModelGraph import ModelGraph
-from string import ascii_lowercase
 
 __author__ = 'Henry Cagnini'
 
 
-def get_random_graph(n_nodes):
-    _nodes = []
-
-    for char in list(ascii_lowercase)[:n_nodes]:
-        _nodes.append(Node(char))
-
-    my_graph = ModelGraph(neighborhood=_nodes)
-    my_graph.randomize_edges(chain=False)
-
-    return my_graph
-
-
 def main():
-    n_nodes = 20  # max number of nodes = letters in the alphabet
+    n_nodes = 5  # max number of nodes = letters in the alphabet
     n_colors = 3  # number of colors to use in the graph
     n_individuals = 1000  # size of the population
     seed = None  # use None for random or any integer for predetermined randomization
@@ -43,7 +29,7 @@ def main():
     random.seed(seed)
     np.random.seed(seed)
 
-    G = get_random_graph(n_nodes)
+    G = ModelGraph.generate_random(n_nodes=n_nodes)
 
     # plot_random_graph(G)
 
@@ -51,4 +37,6 @@ def main():
     inst.solve()
     inst.summary(screen=True, pdf=False, file=False)
 
-main()
+
+if __name__ == '__main__':
+    main()

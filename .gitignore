@@ -2,3 +2,4 @@
 *.pdf
 *.gv
 output.txt
+.idea/
