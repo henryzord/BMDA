@@ -12,9 +12,11 @@ an effective solution is unfeasible.
 
 import random
 import numpy as np
-
 from BMDA import BMDA
-from ModelGraph import ModelGraph
+from problem import ModelGraph
+from matplotlib import pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import to_hex
 
 __author__ = 'Henry Cagnini'
 
@@ -22,20 +24,33 @@ __author__ = 'Henry Cagnini'
 def main():
     n_nodes = 5  # max number of nodes = letters in the alphabet
     n_colors = 3  # number of colors to use in the graph
-    n_individuals = 1000  # size of the population
-    seed = None  # use None for random or any integer for predetermined randomization
-    max_iter = 1000  # max iterations to search for optimum
+    n_individuals = 100  # size of the population
+    seed = 3  # use None for random or any integer for predetermined randomization
+    n_generations = 100  # max iterations to search for optimum
 
     random.seed(seed)
     np.random.seed(seed)
 
-    G = ModelGraph.generate_random(n_nodes=n_nodes)
+    available_colors = map(
+            to_hex,
+            cm.viridis(np.linspace(0.5, 1., n_colors))
+        )
 
-    # plot_random_graph(G)
+    G = ModelGraph.generate_random(n_nodes=n_nodes, available_colors=available_colors)
+    G.reset_colors()
 
-    inst = BMDA(n_individuals, G, n_colors, max_iter)
-    inst.solve()
-    inst.summary(screen=True, pdf=False, file=False)
+    # G.plot()
+    # plt.show()
+
+    inst = BMDA()
+
+    inst.fit(
+        modelgraph=G,
+        n_individuals=n_individuals,
+        n_generations=n_generations
+    )
+
+    # inst.summary(screen=True, pdf=False, file=False)
 
 
 if __name__ == '__main__':
