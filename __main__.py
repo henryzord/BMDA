@@ -23,7 +23,7 @@ __author__ = 'Henry Cagnini'
 
 def main():
     n_nodes = 5  # max number of nodes = letters in the alphabet
-    n_colors = 3  # number of colors to use in the graph
+    n_colors = 2  # number of colors to use in the graph
     n_individuals = 100  # size of the population
     seed = 5  # use None for random or any integer for predetermined randomization
     n_generations = 100  # max iterations to search for optimum
@@ -39,16 +39,19 @@ def main():
     G = ModelGraph.generate_random(n_nodes=n_nodes, available_colors=available_colors)
     G.reset_colors()
 
-    # G.plot()
+    G.plot()
     # plt.show()
 
     inst = BMDA()
 
-    inst.fit(
+    best = inst.fit(
         modelgraph=G,
         n_individuals=n_individuals,
         n_generations=n_generations
     )
+
+    best.plot()
+    plt.show()
 
     # inst.summary(screen=True, pdf=False, file=False)
 

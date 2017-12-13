@@ -60,19 +60,23 @@ class BMDA(object):
             median = np.median(fitness)
 
             fittest_arg = fitness > median
+
+            if max(fittest_arg) == 0:
+                break
+
             fittest_mod = population[np.flatnonzero(fittest_arg)]
 
             gm.update(fittest_mod)
-            z = 0
 
-            # former depends on latter in the tuple
-
-            if gm.converged():
-                break
+            # if gm.converged():
+            #     break
 
             g += 1
 
-        print '\n'
+        fitness = np.array(map(lambda x: x.fitness, population))
+        best = np.argmax(fitness)
+
+        return population[best]
 
     # def summary(self, screen=True, file=False, pdf=False):
     #     _str = 'Finished inference in ' + str(self.last_iteration) + ' iterations.\n'

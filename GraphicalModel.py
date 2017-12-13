@@ -11,6 +11,8 @@ class Variable(object):
     """
     Each variable can have at most 1 parent.
     """
+    var_i = 0
+    par_i = 1
 
     def __init__(self, name, values, parent=None):
         """
@@ -23,7 +25,7 @@ class Variable(object):
         self.values = values
         self.parent = parent
 
-        vals = it.product(self.values, self.values) if parent is not None else self.values
+        vals = it.product(self.values, self.values)
         val_tuples = []
         for val in vals:
             val_tuples += [(val, )]
@@ -39,9 +41,13 @@ class Variable(object):
         self.__add_rest__()
 
     def __add_rest__(self):
+
+        n_index = len(self.probs.index)
+        picked = self.probs.index[np.random.choice(n_index)]
+
         summed = np.sum(self.probs)
         rest = 1. - summed
-        self.probs.loc[np.random.choice(self.probs.index)] += rest
+        self.probs.loc[[picked]] += rest
 
     def sample(self, evidence=None):
         """
@@ -50,19 +56,48 @@ class Variable(object):
         :return:
         """
         if evidence is not None:
-            raise NotImplementedError('not implemented yet!')
+            assert self.parent is not None, ValueError('Cannot provide evidence for a variable without parent!')
 
-        a = self.probs.index.values
-        p = self.probs.values.ravel()
+            # TODO check! not sure it is right!
+            a_raw = list(it.product(self.values, [evidence]))
+            p_raw = self.probs.loc[a_raw]
+            a = p_raw.index.values
+            p = p_raw.values.ravel() + (1. - np.sum(p_raw.values.ravel()))/float(len(p_raw.values.ravel()))
+            rest = 1. - np.sum(p)
+            p[np.random.choice(len(p))] += rest
+        else:
+            a = self.probs.index.values
+            p = self.probs.values.ravel()
 
-        color = np.random.choice(a=a, p=p)
+        color = np.random.choice(a=a, p=p)[self.var_i]
+
         return color
 
-    def is_child_of(self):
-        pass
+    def update(self, observed, parent=None):
+        """
 
-    def is_parent_of(self):
-        pass
+        :param observed: An unidimensional array (in the case of a independent variable) or a bidimensional array
+            (where the first column refers to this variable and the second column to the parent) with evidence.
+        """
+
+        if len(observed.shape) > 1:
+            observed = map(tuple, observed)
+            count = Counter(observed)
+        else:
+            combs = it.product(self.values, self.values)
+            count = dict()
+            raw_count = Counter(observed)
+
+            for var, par in combs:
+                count[(var, par)] = float(raw_count.get(var, 0.))
+
+        for (var, par), v in count.items():
+            self.probs.loc[[(var, par)]] = v
+
+        self.parent = parent
+
+        self.probs /= np.sum(count.values())
+        self.__add_rest__()
 
 
 class GraphicalModel(object):
@@ -87,36 +122,55 @@ class GraphicalModel(object):
     def sample(self, n_individuals=1):
         models = []
         for i in xrange(n_individuals):
-            values = []
+            values = dict()
             for var in self.sampling_order:
-                val = self.variables[var].sample()
-                values += [val]
+                variable = self.variables[var]
+                parent = variable.parent
+                evidence = values[parent] if parent is not None else None
+
+                # if evidence is not None:
+                #     z = 0
+                val = variable.sample(evidence)
+                values[variable.name] = val
+
+            ordered_values = sorted(values.items(), key=lambda x: x[0])
+            names, sampled = zip(*ordered_values)
 
             models += [self.modelgraph.__class__(
-                self.modelgraph.variable_names, self.modelgraph.available_values, self.modelgraph.connections, values
+                self.modelgraph.variable_names, self.modelgraph.available_values, self.modelgraph.connections, sampled
             )]
 
         if n_individuals == 1:
             return models[0]
         return models
 
-    def __check_dependencies__(self, fittest):
-        n_fittest = len(fittest)
-        n_variables = fittest[0].n_variables
+    @staticmethod
+    def __check_correlation__(available_values, genotype, correlation):
+        """
+        Checks whether the variables of the problem are correlated. Adapted from
+        Martin Pelikan, Heinz Muehlenbein. The Bivariate Marginal Distribution Algorithm.
 
-        genotype = np.empty((n_fittest, n_variables), dtype=np.object)
+        :type available_values: list
+        :param available_values: Available values that each variable can assume.
+            Currently, all variables must assume the same values.
+        :type genotype: numpy.ndarray
+        :param genotype: Population to observe, where each row is an individual and each column a variable.
+        :type correlation: numpy.ndarray
+        :param correlation: A float matrix with dimensions len(available_values) x len(available_values),
+            where the values denote the value in the chi-squared distribution (>= 3.84 means correlation for at least
+            95% of the occurrences).
+        :rtype: numpy.ndarray
+        :return: The correlation matrix updated.
+        """
 
-        for i in xrange(n_fittest):
-            genotype[i, :] = fittest[i].colors
+        n_fittest, n_variables = genotype.shape
 
-        # TODO do!
-
-        self.dependencies[:] = 0
+        correlation[:] = 0
 
         N = float(n_fittest)
         expected = map(Counter, genotype.T)
 
-        combs = list(it.product(self.modelgraph.available_values, self.modelgraph.available_values))
+        combs = list(it.product(available_values, available_values))
 
         for i in xrange(n_variables):
             for j in xrange(i + 1, n_variables):
@@ -124,7 +178,7 @@ class GraphicalModel(object):
                     map(tuple, it.izip(genotype[:, i], genotype[:, j]))
                 )
 
-                _sum = 0.
+                chi = 0.
                 for a, b in combs:
                     p_ia = expected[i].get(a, 0.) / N
                     p_jb = expected[j].get(b, 0.) / N
@@ -138,18 +192,14 @@ class GraphicalModel(object):
                     upper = (N * p_ia_jb - lower) ** 2
 
                     try:
-                        _sum += upper / lower
+                        chi += upper / lower
                     except ZeroDivisionError:
                         pass  # sums nothing
 
-                if _sum < 3.84:
-                    related = 0
-                else:
-                    related = 1
+                correlation[i, j] = chi
+                correlation[j, i] = chi
 
-                self.dependencies[i, j] = related
-                self.dependencies[j, i] = related
-
+        return correlation
 
     def update(self, fittest):
         """
@@ -159,4 +209,51 @@ class GraphicalModel(object):
         :param fittest:
         :return:
         """
+
+        n_fittest = len(fittest)
+        genotype = np.empty((n_fittest, self.modelgraph.n_variables), dtype=np.object)
+        for i in xrange(n_fittest):
+            genotype[i, :] = fittest[i].colors
+
+        self.dependencies = self.__check_correlation__(self.modelgraph.available_values, genotype, self.dependencies)
+
+        n_variables = self.modelgraph.n_variables
+
+        self.sampling_order[:] = -1
+
+        arg_i = np.random.choice(n_variables)
+        self.sampling_order[0] = arg_i
+        self.variables[arg_i].update(genotype[:, arg_i])
+        n_added = 1
+
+        G = {arg_i}
+        A = {i for i in xrange(n_variables)} - G  # not yet in the dependence graph
+
+        while n_added < n_variables:
+            max_chi = -np.inf
+            arg_max = -1
+            arg_i = -1
+            for i in G:
+                arg_chi = list(A)[np.argmax(self.dependencies[i, list(A)])]
+                if self.dependencies[i, arg_chi] > max_chi:
+                    max_chi = self.dependencies[arg_chi, i]
+                    arg_max = arg_chi
+                    arg_i = i
+
+            if (max_chi >= 3.84) and (arg_i != arg_max):
+                self.variables[arg_max].update(observed=genotype[:, [arg_max, arg_i]], parent=self.variables[arg_i].name)
+            else:
+                arg_max = np.random.choice(A)
+                self.variables[arg_max].update(observed=genotype[:, [arg_max]], parent=None)
+            G |= {arg_max}
+            A -= {arg_max}
+
+            # print 'step %d: arg_i: %s arg_max: %s' % (n_added, self.variables[arg_i].name, self.variables[arg_max].name)
+
+            self.sampling_order[n_added] = arg_max
+            n_added += 1
+
+        # print 'parents:'
+        # for var in self.variables:
+        #     print 'name: %s parent: %s' % (var.name, self.variables[var.parent].name if var.parent is not None else 'None')
 
