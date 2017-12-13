@@ -25,7 +25,7 @@ def main():
     n_nodes = 5  # max number of nodes = letters in the alphabet
     n_colors = 3  # number of colors to use in the graph
     n_individuals = 100  # size of the population
-    seed = 3  # use None for random or any integer for predetermined randomization
+    seed = 5  # use None for random or any integer for predetermined randomization
     n_generations = 100  # max iterations to search for optimum
 
     random.seed(seed)

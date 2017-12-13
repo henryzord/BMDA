@@ -100,14 +100,7 @@ class GraphicalModel(object):
             return models[0]
         return models
 
-    def update(self, fittest):
-        """
-        Updates this graphical model, inplace.
-
-        :type fittest: list
-        :param fittest:
-        :return:
-        """
+    def __check_dependencies__(self, fittest):
         n_fittest = len(fittest)
         n_variables = fittest[0].n_variables
 
@@ -120,7 +113,6 @@ class GraphicalModel(object):
 
         self.dependencies[:] = 0
 
-        variable_names = self.modelgraph.variable_names
         N = float(n_fittest)
         expected = map(Counter, genotype.T)
 
@@ -134,8 +126,16 @@ class GraphicalModel(object):
 
                 _sum = 0.
                 for a, b in combs:
-                    lower = N * (expected[i].get(a, 0.)/N) * (expected[j].get(b, 0.)/N)
-                    upper = (N * (((observed.get((a, b), 0.)/N) * (expected[j].get(b, 0.)/N)) - lower)) ** 2.
+                    p_ia = expected[i].get(a, 0.) / N
+                    p_jb = expected[j].get(b, 0.) / N
+
+                    try:
+                        p_ia_jb = (observed.get((a, b), 0.) / float(expected[j].get(b, 0.))) * p_jb
+                    except ZeroDivisionError:
+                        p_ia_jb = 0.
+
+                    lower = N * (p_ia * p_jb)
+                    upper = (N * p_ia_jb - lower) ** 2
 
                     try:
                         _sum += upper / lower
@@ -150,6 +150,13 @@ class GraphicalModel(object):
                 self.dependencies[i, j] = related
                 self.dependencies[j, i] = related
 
-        raise NotImplementedError('implementation error!')
-        print self.dependencies
-        z = 0
+
+    def update(self, fittest):
+        """
+        Updates this graphical model, inplace.
+
+        :type fittest: list
+        :param fittest:
+        :return:
+        """
+
