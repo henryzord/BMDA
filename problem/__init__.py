@@ -116,12 +116,12 @@ class ModelGraph(Problem):
         return _copy
 
     @classmethod
-    def generate_random(cls, n_nodes, available_colors):
+    def generate_random(cls, n_nodes, available_colors, prob=0.25):
         triu_x, triu_y = np.triu_indices(n_nodes, 1)  # upper triangular coordinates
         diag_x, diag_y = np.diag_indices(n_nodes)  # diagonal coordinates
 
         connections = np.empty((n_nodes, n_nodes), dtype=np.int32)
-        connections[triu_x, triu_y] = np.random.randint(0, 2, size=len(triu_x), dtype=np.int32)
+        connections[triu_x, triu_y] = np.random.choice([0, 1], replace=True, size=len(triu_x), p=[1. - prob, prob]).astype(np.int32)
         connections[triu_y, triu_x] = connections[triu_x, triu_y]
         connections[diag_x, diag_y] = False
 
@@ -170,10 +170,4 @@ class ModelGraph(Problem):
 
         __colors = [self._colors[dict_conv[x]] for x in G.nodes()]
 
-        # layout = nx.circular_layout(G)
         nx.draw_networkx(G, node_color=__colors)
-
-        # nx.draw_networkx_nodes(G, layout, node_size=1000, node_color=self._colors)  # nodes
-        # nx.draw_networkx_edges(G, layout, edgelist=edges, style='solid')  # edges
-        # nx.draw_networkx_labels(G, layout, dict(zip(self.node_names, self.node_names)), font_size=16)  # node labels
-        # nx.draw_networkx_edge_labels(G, layout, edge_labels=edge_labels, font_size=16)  # edge labels

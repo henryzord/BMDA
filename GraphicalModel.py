@@ -77,11 +77,18 @@ class Variable(object):
     def update(self, observed, parent=None):
         """
 
+        :type observed: numpy.ndarray
         :param observed: An unidimensional array (in the case of a independent variable) or a bidimensional array
             (where the first column refers to this variable and the second column to the parent) with evidence.
         """
+        if isinstance(observed, np.ndarray):
+            multidimensional = len(observed.shape) > 1
+        elif isinstance(observed, list):
+            multidimensional = len(observed[0])
+        else:
+            raise TypeError('observed must be a list or a numpy.ndarray!')
 
-        if len(observed.shape) > 1:
+        if multidimensional:
             observed = map(tuple, observed)
             count = Counter(observed)
         else:
@@ -237,8 +244,8 @@ class GraphicalModel(Graph):
             if (max_chi >= 3.84) and (arg_i != arg_max):
                 self.variables[arg_max].update(observed=genotype[:, [arg_max, arg_i]], parent=self.variables[arg_i].name)
             else:
-                arg_max = np.random.choice(A)
-                self.variables[arg_max].update(observed=genotype[:, [arg_max]], parent=None)
+                arg_max = np.random.choice(list(A))
+                self.variables[arg_max].update(observed=genotype[:, arg_max], parent=None)
             G |= {arg_max}
             A -= {arg_max}
 
