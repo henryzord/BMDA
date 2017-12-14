@@ -39,21 +39,18 @@ def main():
     G = ModelGraph.generate_random(n_nodes=n_nodes, available_colors=available_colors)
     G.reset_colors()
 
-    G.plot()
-    # plt.show()
-
     inst = BMDA()
 
-    best = inst.fit(
+    best, gm = inst.fit(
         modelgraph=G,
         n_individuals=n_individuals,
         n_generations=n_generations
     )
 
-    best.plot()
+    G.plot(title='Problem')
+    best.plot(title='Best individual')
+    gm.plot(title='Graphical Model')
     plt.show()
-
-    # inst.summary(screen=True, pdf=False, file=False)
 
 
 if __name__ == '__main__':

@@ -1,8 +1,10 @@
+import itertools as it
 from collections import Counter
 
 import numpy as np
 import pandas as pd
-import itertools as it
+from problem import Graph
+import networkx as nx
 
 __author__ = 'Henry Cagnini'
 
@@ -11,8 +13,8 @@ class Variable(object):
     """
     Each variable can have at most 1 parent.
     """
-    var_i = 0
-    par_i = 1
+    var_i = 0  # variable index in the probs matrix
+    par_i = 1  # parent index in the probs matrix
 
     def __init__(self, name, values, parent=None):
         """
@@ -45,9 +47,10 @@ class Variable(object):
         n_index = len(self.probs.index)
         picked = self.probs.index[np.random.choice(n_index)]
 
-        summed = np.sum(self.probs)
+        summed = np.sum(self.probs.values.ravel())
         rest = 1. - summed
-        self.probs.loc[[picked]] += rest
+        if rest > 0:
+            self.probs.loc[[picked]] += rest
 
     def sample(self, evidence=None):
         """
@@ -58,11 +61,10 @@ class Variable(object):
         if evidence is not None:
             assert self.parent is not None, ValueError('Cannot provide evidence for a variable without parent!')
 
-            # TODO check! not sure it is right!
             a_raw = list(it.product(self.values, [evidence]))
             p_raw = self.probs.loc[a_raw]
             a = p_raw.index.values
-            p = p_raw.values.ravel() + (1. - np.sum(p_raw.values.ravel()))/float(len(p_raw.values.ravel()))
+            p = p_raw.values.ravel() / p_raw.values.ravel().sum()
             rest = 1. - np.sum(p)
             p[np.random.choice(len(p))] += rest
         else:
@@ -70,7 +72,6 @@ class Variable(object):
             p = self.probs.values.ravel()
 
         color = np.random.choice(a=a, p=p)[self.var_i]
-
         return color
 
     def update(self, observed, parent=None):
@@ -97,10 +98,11 @@ class Variable(object):
         self.parent = parent
 
         self.probs /= np.sum(count.values())
+
         self.__add_rest__()
 
 
-class GraphicalModel(object):
+class GraphicalModel(Graph):
     def __init__(self, modelgraph):
         """
 
@@ -128,8 +130,6 @@ class GraphicalModel(object):
                 parent = variable.parent
                 evidence = values[parent] if parent is not None else None
 
-                # if evidence is not None:
-                #     z = 0
                 val = variable.sample(evidence)
                 values[variable.name] = val
 
@@ -248,12 +248,25 @@ class GraphicalModel(object):
             G |= {arg_max}
             A -= {arg_max}
 
-            # print 'step %d: arg_i: %s arg_max: %s' % (n_added, self.variables[arg_i].name, self.variables[arg_max].name)
-
             self.sampling_order[n_added] = arg_max
             n_added += 1
 
-        # print 'parents:'
-        # for var in self.variables:
-        #     print 'name: %s parent: %s' % (var.name, self.variables[var.parent].name if var.parent is not None else 'None')
+    def plot(self, title=''):
+        super(GraphicalModel, self).plot(title)
 
+        G = nx.DiGraph()
+
+        parents = dict()
+        sole = []
+        for variable in self.variables:
+            if variable.parent is None:
+                sole += [variable.name]
+            else:
+                parents[variable.name] = variable.parent
+
+        G.add_nodes_from(sole)
+        G.add_edges_from(
+            map(lambda x: x[::-1], parents.items())
+        )
+        layout = nx.circular_layout(G)
+        nx.draw_networkx(G, pos=layout)  # , node_color='cyan')

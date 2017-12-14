@@ -1,14 +1,21 @@
 import copy
-import operator as op
-import numpy as np
-import graphviz
-import networkx as nx
-from matplotlib import pyplot as plt
-from string import ascii_lowercase
 import itertools as it
+import operator as op
+from string import ascii_lowercase
+
+import networkx as nx
+import numpy as np
+from matplotlib import pyplot as plt
 
 
-class Problem(object):
+class Graph(object):
+    def plot(self, title=''):
+        plt.figure()
+        plt.axis('off')
+        plt.title(title)
+
+
+class Problem(Graph):
     def __init__(self, variable_names, available_values):
         self.available_values = available_values
         self.variable_names = variable_names
@@ -132,18 +139,23 @@ class ModelGraph(Problem):
             colors=picked_colors
         )
 
-    def plot(self, show=False):
-        plt.figure()
-        G = nx.DiGraph()
+    def plot(self, title=''):
+        super(ModelGraph, self).plot(title)
+
+        G = nx.Graph()
 
         edges = zip(*np.where(self.connections))
 
-        G.add_nodes_from(range(self.n_connections), label=self.node_names)
-        G.add_edges_from(edges, label=self.node_names)
+        edges = map(
+            lambda x: map(
+                lambda y: self.node_names[y],
+                x
+            ),
+            edges
+        )
+
+        G.add_nodes_from(self.node_names)
+        G.add_edges_from(edges)
 
         layout = nx.circular_layout(G)
         nx.draw_networkx(G, pos=layout, node_color=self.colors)
-        plt.axis('off')
-
-        if show:
-            plt.show()
