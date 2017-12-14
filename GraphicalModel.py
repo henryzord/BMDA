@@ -121,28 +121,22 @@ class GraphicalModel(Graph):
 
         self.dependencies = np.zeros((len(self.variables), len(self.variables)), dtype=np.int32)
 
-    def sample(self, n_individuals=1):
-        models = []
-        for i in xrange(n_individuals):
-            values = dict()
-            for var in self.sampling_order:
-                variable = self.variables[var]
-                parent = variable.parent
-                evidence = values[parent] if parent is not None else None
+    def sample(self, individual=None):
+        values = dict()
+        for var in self.sampling_order:
+            variable = self.variables[var]
+            parent = variable.parent
+            evidence = values[parent] if parent is not None else None
 
-                val = variable.sample(evidence)
-                values[variable.name] = val
+            val = variable.sample(evidence)
+            values[variable.name] = val
 
-            ordered_values = sorted(values.items(), key=lambda x: x[0])
-            names, sampled = zip(*ordered_values)
+        ordered_values = sorted(values.items(), key=lambda x: x[0])
+        names, sampled = zip(*ordered_values)
 
-            models += [self.modelgraph.__class__(
-                self.modelgraph.variable_names, self.modelgraph.available_values, self.modelgraph.connections, sampled
-            )]
+        individual.colors = list(sampled)
 
-        if n_individuals == 1:
-            return models[0]
-        return models
+        return individual
 
     @staticmethod
     def __check_correlation__(available_values, genotype, correlation):
@@ -268,5 +262,5 @@ class GraphicalModel(Graph):
         G.add_edges_from(
             map(lambda x: x[::-1], parents.items())
         )
-        layout = nx.circular_layout(G)
-        nx.draw_networkx(G, pos=layout)  # , node_color='cyan')
+        # layout = nx.circular_layout(G)
+        nx.draw_networkx(G, node_color='cyan')  # pos=layout)

@@ -46,7 +46,7 @@ class BMDA(object):
         for g in xrange(n_generations):
             for i in xrange(n_individuals):
                 if population[i].fitness <= median:
-                    population[i] = gm.sample()
+                    population[i] = gm.sample(population[i])
 
             fitness = np.array(map(lambda x: x.fitness, population))
             median = np.median(fitness)  # type: float

@@ -53,13 +53,21 @@ class ModelGraph(Problem):
         super(ModelGraph, self).__init__(variable_names=node_names, available_values=available_colors)
 
         self.connections = connections
-        self.colors = colors
+        self._colors = colors
 
         triu_x, triu_y = np.triu_indices(self.n_nodes, 1)  # upper triangular coordinates
         self.n_connections = np.sum(self.connections[triu_x, triu_y])  # type: int
 
     def reset_colors(self):
-        self.colors = np.repeat(self.colors[0], len(self.colors))
+        self._colors = np.repeat(self._colors[0], len(self._colors))
+
+    @property
+    def colors(self):
+        return self._colors
+
+    @colors.setter
+    def colors(self, new_colors):
+        self._colors = list(new_colors)
 
     @property
     def fitness(self):
@@ -74,7 +82,9 @@ class ModelGraph(Problem):
 
         for i in xrange(self.n_nodes):
             for j in xrange(i + 1, self.n_nodes):
-                fitness += self.connections[i, j] * (self.colors[i] != self.colors[j])
+                connected = self.connections[i, j]
+                diff_color = (self._colors[i] != self._colors[j])
+                fitness += connected * diff_color
 
         return fitness / float(self.n_connections)
 
@@ -93,20 +103,17 @@ class ModelGraph(Problem):
     def __copy__(self):
         _copy = self.__class__(
             copy.copy(self.node_names), copy.copy(self.available_colors),
-            copy.copy(self.connections), copy.copy(self.colors)
+            copy.copy(self.connections), copy.copy(self._colors)
         )
         return _copy
 
     def __deepcopy__(self, memo):
         _copy = self.__class__(
             copy.deepcopy(self.node_names), copy.deepcopy(self.available_colors),
-            copy.deepcopy(self.connections), copy.deepcopy(self.colors)
+            copy.deepcopy(self.connections), copy.deepcopy(self._colors)
         )
 
         return _copy
-
-    def export(self, filename):
-        raise NotImplementedError('not implemented yet!')
 
     @classmethod
     def generate_random(cls, n_nodes, available_colors):
@@ -157,5 +164,16 @@ class ModelGraph(Problem):
         G.add_nodes_from(self.node_names)
         G.add_edges_from(edges)
 
-        layout = nx.circular_layout(G)
-        nx.draw_networkx(G, pos=layout, node_color=self.colors)
+        dict_conv = dict(
+            zip(self.node_names, range(self.n_nodes))
+        )
+
+        __colors = [self._colors[dict_conv[x]] for x in G.nodes()]
+
+        # layout = nx.circular_layout(G)
+        nx.draw_networkx(G, node_color=__colors)
+
+        # nx.draw_networkx_nodes(G, layout, node_size=1000, node_color=self._colors)  # nodes
+        # nx.draw_networkx_edges(G, layout, edgelist=edges, style='solid')  # edges
+        # nx.draw_networkx_labels(G, layout, dict(zip(self.node_names, self.node_names)), font_size=16)  # node labels
+        # nx.draw_networkx_edge_labels(G, layout, edge_labels=edge_labels, font_size=16)  # edge labels
