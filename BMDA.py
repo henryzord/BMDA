@@ -34,37 +34,37 @@ class BMDA(object):
 
         t1 = dt.now()
         population = np.array(
-            map(
+            list(map(
                 lambda x: copy.deepcopy(modelgraph),
-                xrange(n_individuals)
-            )
+                range(n_individuals)
+            ))
         )
 
         gm = GraphicalModel(modelgraph=modelgraph)
         median = np.inf
 
-        for g in xrange(n_generations):
-            for i in xrange(n_individuals):
+        for g in range(n_generations):
+            for i in range(n_individuals):
                 if population[i].fitness <= median:
                     population[i] = gm.sample(population[i])
 
-            fitness = np.array(map(lambda x: x.fitness, population))
+            fitness = np.array(list(map(lambda x: x.fitness, population)))
             median = np.median(fitness)  # type: float
             fittest_arg = fitness > median
 
             fittest_mod = population[np.flatnonzero(fittest_arg)]
 
             t2 = dt.now()
-            print 'generation %3.d: (%.6f, %.6f, %.6f) Time elapsed: %.4f' % (
+            print('generation %3.d: (%.6f, %.6f, %.6f) Time elapsed: %.4f' % (
                 g, np.min(fitness), median, np.max(fitness), (t2 - t1).total_seconds()
-            )
+            ))
             t1 = dt.now()
             if max(fittest_arg) == 0:  # or converged
                 break
 
             gm.update(fittest_mod)
 
-        fitness = np.array(map(lambda x: x.fitness, population))
+        fitness = np.array(list(map(lambda x: x.fitness, population)))
         best = np.argmax(fitness)
 
         return population[best], gm

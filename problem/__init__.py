@@ -6,6 +6,7 @@ from string import ascii_lowercase
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
+from functools import reduce
 
 
 class Graph(object):
@@ -80,8 +81,8 @@ class ModelGraph(Problem):
         """
         fitness = 0.
 
-        for i in xrange(self.n_nodes):
-            for j in xrange(i + 1, self.n_nodes):
+        for i in range(self.n_nodes):
+            for j in range(i + 1, self.n_nodes):
                 connected = self.connections[i, j]
                 diff_color = (self._colors[i] != self._colors[j])
                 fitness += connected * diff_color
@@ -153,13 +154,13 @@ class ModelGraph(Problem):
 
         edges = zip(*np.where(self.connections))
 
-        edges = map(
-            lambda x: map(
+        edges = list(map(
+            lambda x: list(map(
                 lambda y: self.node_names[y],
                 x
-            ),
+            )),
             edges
-        )
+        ))
 
         G.add_nodes_from(self.node_names)
         G.add_edges_from(edges)
@@ -171,3 +172,8 @@ class ModelGraph(Problem):
         __colors = [self._colors[dict_conv[x]] for x in G.nodes()]
 
         nx.draw_networkx(G, node_color=__colors)
+
+
+class WorldMap(Problem):
+    def __init__(self, variable_names, available_values):
+        super().__init__(variable_names, available_values)

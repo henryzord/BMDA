@@ -31,10 +31,10 @@ def main():
     random.seed(seed)
     np.random.seed(seed)
 
-    available_colors = map(
-            to_hex,
-            cm.viridis(np.linspace(0.5, 1., n_colors))
-        )
+    available_colors = list(map(
+        to_hex,
+        cm.viridis(np.linspace(0.5, 1., n_colors))
+    ))
 
     G = ModelGraph.generate_random(n_nodes=n_nodes, available_colors=available_colors)
     G.reset_colors()
@@ -47,7 +47,7 @@ def main():
         n_generations=n_generations
     )
 
-    print 'best individual fitness:', best.fitness
+    print('best individual fitness:', best.fitness)
     G.plot(title='Problem')
     best.plot(title='Best individual')
     gm.plot(title='Graphical Model')

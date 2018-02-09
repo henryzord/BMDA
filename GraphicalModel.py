@@ -30,7 +30,8 @@ class Variable(object):
         vals = it.product(self.values, self.values)
         val_tuples = []
         for val in vals:
-            val_tuples += [(val, )]
+            # val_tuples += [(val, )]  # TODO removed
+            val_tuples += [val]  # TODO removed
 
         index = pd.MultiIndex.from_tuples(val_tuples)
 
@@ -77,6 +78,7 @@ class Variable(object):
     def update(self, observed, parent=None):
         """
 
+        :param parent:
         :type observed: numpy.ndarray
         :param observed: An unidimensional array (in the case of a independent variable) or a bidimensional array
             (where the first column refers to this variable and the second column to the parent) with evidence.
@@ -89,7 +91,7 @@ class Variable(object):
             raise TypeError('observed must be a list or a numpy.ndarray!')
 
         if multidimensional:
-            observed = map(tuple, observed)
+            observed = list(map(tuple, observed))
             count = Counter(observed)
         else:
             combs = it.product(self.values, self.values)
@@ -104,7 +106,7 @@ class Variable(object):
 
         self.parent = parent
 
-        self.probs /= np.sum(count.values())
+        self.probs /= np.sum(self.probs)
 
         self.__add_rest__()
 
@@ -169,14 +171,14 @@ class GraphicalModel(Graph):
         correlation[:] = 0
 
         N = float(n_fittest)
-        expected = map(Counter, genotype.T)
+        expected = list(map(Counter, genotype.T))
 
         combs = list(it.product(available_values, available_values))
 
-        for i in xrange(n_variables):
-            for j in xrange(i + 1, n_variables):
+        for i in range(n_variables):
+            for j in range(i + 1, n_variables):
                 observed = Counter(
-                    map(tuple, it.izip(genotype[:, i], genotype[:, j]))
+                    map(tuple, zip(genotype[:, i], genotype[:, j]))
                 )
 
                 chi = 0.
@@ -213,7 +215,7 @@ class GraphicalModel(Graph):
 
         n_fittest = len(fittest)
         genotype = np.empty((n_fittest, self.modelgraph.n_variables), dtype=np.object)
-        for i in xrange(n_fittest):
+        for i in range(n_fittest):
             genotype[i, :] = fittest[i].colors
 
         self.dependencies = self.__check_correlation__(self.modelgraph.available_values, genotype, self.dependencies)
@@ -228,7 +230,7 @@ class GraphicalModel(Graph):
         n_added = 1
 
         G = {arg_i}
-        A = {i for i in xrange(n_variables)} - G  # not yet in the dependence graph
+        A = {i for i in range(n_variables)} - G  # not yet in the dependence graph
 
         while n_added < n_variables:
             max_chi = -np.inf
