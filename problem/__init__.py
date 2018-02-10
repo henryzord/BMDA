@@ -7,6 +7,9 @@ import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
 from functools import reduce
+import pandas as pd
+import json
+import os
 
 
 class Graph(object):
@@ -46,7 +49,7 @@ class ModelGraph(Problem):
         :type connections: numpy.ndarray
         :param connections: A boolean matrix of size n_nodes x n_nodes, where 0 indicates no relation
             and 1 indicates a connection between the nodes.
-        :type colors: list
+        :type colors: list, numpy.ndarray
         :param colors: a list where each entry is the color for that node
         :type available_colors: list
         :param available_colors: a list with all available colors for this problem.
@@ -174,6 +177,42 @@ class ModelGraph(Problem):
         nx.draw_networkx(G, node_color=__colors)
 
 
-class WorldMap(Problem):
-    def __init__(self, variable_names, available_values):
-        super().__init__(variable_names, available_values)
+class WorldMap(ModelGraph):
+    def __init__(self, colors):
+        """
+
+        :param colors: Support for variables. Note that this class assumes the same support for all variables.
+        """
+        __location__ = os.path.realpath(
+            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+        neighbors = json.load(
+            open(os.path.join(__location__, 'neighbors.json'), 'r', encoding='utf-8')
+        )
+        countries = pd.read_csv(os.path.join(__location__, 'countries.csv'), delimiter=',', dtype=np.object, na_filter=False)
+
+        n_countries = len(countries)
+
+        countries.sort_values(by='NAME', inplace=True)
+        connections = pd.DataFrame(index=countries['NAME'], columns=countries['NAME'], dtype=np.int32)
+
+        a2_to_name = dict(list(zip(countries['ISO_A2'].tolist(), countries['NAME'].tolist())))
+
+        for ISO_A2, content in neighbors.items():
+            host = a2_to_name[ISO_A2]
+            for neighbor in content['neighbors']:
+                invited = a2_to_name[neighbor['countryCode']]
+                connections[host][invited] = 1
+                connections[invited][host] = 1
+
+        connections.to_csv('connections.csv')
+        super().__init__(
+            node_names=country_names,
+            available_colors=colors,
+            connections=connections,
+            colors=np.repeat(colors[0], n_countries)
+        )
+
+    @classmethod
+    def generate_random(cls, n_nodes, available_colors, prob=0.25):
+        raise NotImplementedError('not implemented yet!')

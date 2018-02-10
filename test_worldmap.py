@@ -50,7 +50,7 @@ def plot_worldmap():
     pd.DataFrame(
         data,
         columns=['name', 'ISO_A2', 'ISO_A3', 'UN_A3']
-    ).to_csv('cartopy_countries.csv', sep=',', quotechar="\"", index=False)
+    ).to_csv('countries.csv', sep=',', quotechar="\"", index=False)
 
     for country in countries:
         if country.attributes['ADM0_A3'] == 'USA':
@@ -85,8 +85,13 @@ def main():
     random.seed(seed)
     np.random.seed(seed)
 
+    available_colors = list(map(
+        to_hex,
+        cm.viridis(np.linspace(0.5, 1., n_colors))
+    ))
+
     # TODO fulfill country names and colors!
-    G = WorldMap()
+    G = WorldMap(colors=available_colors)
 
     inst = BMDA()
 

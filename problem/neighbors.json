@@ -1,7 +1,7 @@
 {
    "AD":{
       "id":3041565,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3017382",
             "adminCode1":"00",
@@ -40,7 +40,7 @@
    },
    "AE":{
       "id":290557,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"286963",
             "adminCode1":"00",
@@ -79,7 +79,7 @@
    },
    "AF":{
       "id":1149361,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -186,19 +186,19 @@
    },
    "AG":{
       "id":3576396,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "AI":{
       "id":3573511,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "AL":{
       "id":783754,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"390903",
             "adminCode1":"00",
@@ -288,7 +288,7 @@
    },
    "AM":{
       "id":174982,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"587116",
             "adminCode1":"00",
@@ -361,7 +361,7 @@
    },
    "AO":{
       "id":3351879,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"203312",
             "adminCode1":"00",
@@ -434,11 +434,11 @@
    },
    "AQ":{
       "id":6697173,
-      "neighbours": []
+      "neighbors": []
    },
    "AR":{
       "id":3865483,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3923057",
             "adminCode1":"00",
@@ -528,11 +528,11 @@
    },
    "AS":{
       "id":5880801,
-      "neighbours": []
+      "neighbors": []
    },
    "AT":{
       "id":2782113,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3077311",
             "adminCode1":"00",
@@ -673,25 +673,25 @@
    },
    "AU":{
       "id":2077456,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "AW":{
       "id":3577279,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "AX":{
       "id":661882,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "AZ":{
       "id":587116,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"174982",
             "adminCode1":"00",
@@ -781,7 +781,7 @@
    },
    "BA":{
       "id":3277605,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3202326",
             "adminCode1":"00",
@@ -837,13 +837,13 @@
    },
    "BB":{
       "id":3374084,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BD":{
       "id":1210997,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1269750",
             "adminCode1":"00",
@@ -882,7 +882,7 @@
    },
    "BE":{
       "id":2802361,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3017382",
             "adminCode1":"00",
@@ -955,7 +955,7 @@
    },
    "BF":{
       "id":2361809,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2395170",
             "adminCode1":"00",
@@ -1062,7 +1062,7 @@
    },
    "BG":{
       "id":732800,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"390903",
             "adminCode1":"00",
@@ -1152,13 +1152,13 @@
    },
    "BH":{
       "id":290291,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BI":{
       "id":433561,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"203312",
             "adminCode1":"00",
@@ -1214,7 +1214,7 @@
    },
    "BJ":{
       "id":2395170,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2361809",
             "adminCode1":"00",
@@ -1287,19 +1287,19 @@
    },
    "BL":{
       "id":3578476,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BM":{
       "id":3573345,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BN":{
       "id":1820814,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1733045",
             "adminCode1":"00",
@@ -1321,7 +1321,7 @@
    },
    "BO":{
       "id":3923057,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3865483",
             "adminCode1":"00",
@@ -1411,13 +1411,13 @@
    },
    "BQ":{
       "id":7626844,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BR":{
       "id":3469034,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3865483",
             "adminCode1":"00",
@@ -1592,13 +1592,13 @@
    },
    "BS":{
       "id":3572887,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BT":{
       "id":1252634,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -1637,13 +1637,13 @@
    },
    "BV":{
       "id":3371123,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "BW":{
       "id":933860,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3355338",
             "adminCode1":"00",
@@ -1699,7 +1699,7 @@
    },
    "BY":{
       "id":630336,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"458258",
             "adminCode1":"00",
@@ -1789,7 +1789,7 @@
    },
    "BZ":{
       "id":3582678,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3595528",
             "adminCode1":"00",
@@ -1828,7 +1828,7 @@
    },
    "CA":{
       "id":6251999,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"6252001",
             "adminCode1":"00",
@@ -1850,13 +1850,13 @@
    },
    "CC":{
       "id":1547376,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "CD":{
       "id":203312,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3351879",
             "adminCode1":"00",
@@ -2014,7 +2014,7 @@
    },
    "CF":{
       "id":239880,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2233387",
             "adminCode1":"00",
@@ -2121,7 +2121,7 @@
    },
    "CG":{
       "id":2260494,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3351879",
             "adminCode1":"00",
@@ -2211,7 +2211,7 @@
    },
    "CH":{
       "id":2658434,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -2301,7 +2301,7 @@
    },
    "CI":{
       "id":2287781,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2361809",
             "adminCode1":"00",
@@ -2391,13 +2391,13 @@
    },
    "CK":{
       "id":1899402,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "CL":{
       "id":3895114,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3865483",
             "adminCode1":"00",
@@ -2453,7 +2453,7 @@
    },
    "CM":{
       "id":2233387,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"239880",
             "adminCode1":"00",
@@ -2560,7 +2560,7 @@
    },
    "CN":{
       "id":1814991,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1149361",
             "adminCode1":"00",
@@ -2803,7 +2803,7 @@
    },
    "CO":{
       "id":3686110,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3469034",
             "adminCode1":"00",
@@ -2893,7 +2893,7 @@
    },
    "CR":{
       "id":3624060,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3617476",
             "adminCode1":"00",
@@ -2932,7 +2932,7 @@
    },
    "CU":{
       "id":3562981,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"6252001",
             "adminCode1":"00",
@@ -2954,31 +2954,31 @@
    },
    "CV":{
       "id":3374766,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "CW":{
       "id":7626836,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "CX":{
       "id":2078138,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "CY":{
       "id":146669,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "CZ":{
       "id":3077311,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -3051,7 +3051,7 @@
    },
    "DE":{
       "id":2921044,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -3209,7 +3209,7 @@
    },
    "DJ":{
       "id":223816,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"338010",
             "adminCode1":"00",
@@ -3265,7 +3265,7 @@
    },
    "DK":{
       "id":2623032,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2921044",
             "adminCode1":"00",
@@ -3287,13 +3287,13 @@
    },
    "DM":{
       "id":3575830,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "DO":{
       "id":3508796,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3723988",
             "adminCode1":"00",
@@ -3315,7 +3315,7 @@
    },
    "DZ":{
       "id":2589581,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2215636",
             "adminCode1":"00",
@@ -3439,7 +3439,7 @@
    },
    "EC":{
       "id":3658394,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3686110",
             "adminCode1":"00",
@@ -3478,7 +3478,7 @@
    },
    "EE":{
       "id":453733,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"458258",
             "adminCode1":"00",
@@ -3517,7 +3517,7 @@
    },
    "EG":{
       "id":357994,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"294640",
             "adminCode1":"00",
@@ -3573,11 +3573,11 @@
    },
    "EH":{
       "id":2461445,
-      "neighbours": []
+      "neighbors": []
    },
    "ER":{
       "id":338010,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"223816",
             "adminCode1":"00",
@@ -3633,7 +3633,7 @@
    },
    "ES":{
       "id":2510769,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3041565",
             "adminCode1":"00",
@@ -3723,7 +3723,7 @@
    },
    "ET":{
       "id":337996,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"223816",
             "adminCode1":"00",
@@ -3830,7 +3830,7 @@
    },
    "FI":{
       "id":660013,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3144096",
             "adminCode1":"00",
@@ -3886,31 +3886,31 @@
    },
    "FJ":{
       "id":2205218,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "FK":{
       "id":3474414,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "FM":{
       "id":2081918,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "FO":{
       "id":2622320,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "FR":{
       "id":3017382,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3041565",
             "adminCode1":"00",
@@ -4051,7 +4051,7 @@
    },
    "GA":{
       "id":2400553,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2233387",
             "adminCode1":"00",
@@ -4107,7 +4107,7 @@
    },
    "GB":{
       "id":2635167,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2963597",
             "adminCode1":"00",
@@ -4129,13 +4129,13 @@
    },
    "GD":{
       "id":3580239,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "GE":{
       "id":614540,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"174982",
             "adminCode1":"00",
@@ -4208,7 +4208,7 @@
    },
    "GF":{
       "id":3381670,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3469034",
             "adminCode1":"00",
@@ -4247,13 +4247,13 @@
    },
    "GG":{
       "id":3042362,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "GH":{
       "id":2300660,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2361809",
             "adminCode1":"00",
@@ -4309,7 +4309,7 @@
    },
    "GI":{
       "id":2411586,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2510769",
             "adminCode1":"00",
@@ -4331,13 +4331,13 @@
    },
    "GL":{
       "id":3425505,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "GM":{
       "id":2413451,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2245662",
             "adminCode1":"00",
@@ -4359,7 +4359,7 @@
    },
    "GN":{
       "id":2420477,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2372248",
             "adminCode1":"00",
@@ -4466,7 +4466,7 @@
    },
    "GP":{
       "id":3579143,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"130758",
             "adminCode1":"15",
@@ -7871,7 +7871,7 @@
    },
    "GQ":{
       "id":2309096,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2233387",
             "adminCode1":"00",
@@ -7910,7 +7910,7 @@
    },
    "GR":{
       "id":390903,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"783754",
             "adminCode1":"00",
@@ -7983,13 +7983,13 @@
    },
    "GS":{
       "id":3474415,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "GT":{
       "id":3595528,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3582678",
             "adminCode1":"00",
@@ -8062,13 +8062,13 @@
    },
    "GU":{
       "id":4043988,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "GW":{
       "id":2372248,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2420477",
             "adminCode1":"00",
@@ -8107,7 +8107,7 @@
    },
    "GY":{
       "id":3378535,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3469034",
             "adminCode1":"00",
@@ -8163,19 +8163,19 @@
    },
    "HK":{
       "id":1819730,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "HM":{
       "id":1547314,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "HN":{
       "id":3608932,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3585968",
             "adminCode1":"00",
@@ -8231,7 +8231,7 @@
    },
    "HR":{
       "id":3202326,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3277605",
             "adminCode1":"00",
@@ -8321,7 +8321,7 @@
    },
    "HT":{
       "id":3723988,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3508796",
             "adminCode1":"00",
@@ -8343,7 +8343,7 @@
    },
    "HU":{
       "id":719819,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -8467,7 +8467,7 @@
    },
    "ID":{
       "id":1643084,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1966436",
             "adminCode1":"00",
@@ -8523,7 +8523,7 @@
    },
    "IE":{
       "id":2963597,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2635167",
             "adminCode1":"00",
@@ -8545,7 +8545,7 @@
    },
    "IL":{
       "id":294640,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"357994",
             "adminCode1":"00",
@@ -8635,13 +8635,13 @@
    },
    "IM":{
       "id":3042225,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "IN":{
       "id":1269750,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1210997",
             "adminCode1":"00",
@@ -8748,13 +8748,13 @@
    },
    "IO":{
       "id":1282588,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "IQ":{
       "id":99237,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"130758",
             "adminCode1":"00",
@@ -8861,7 +8861,7 @@
    },
    "IR":{
       "id":130758,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1149361",
             "adminCode1":"00",
@@ -8985,13 +8985,13 @@
    },
    "IS":{
       "id":2629691,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "IT":{
       "id":3175395,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -9098,19 +9098,19 @@
    },
    "JE":{
       "id":3042142,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "JM":{
       "id":3489940,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "JO":{
       "id":248816,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"99237",
             "adminCode1":"00",
@@ -9200,13 +9200,13 @@
    },
    "JP":{
       "id":1861060,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "KE":{
       "id":192950,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"337996",
             "adminCode1":"00",
@@ -9296,7 +9296,7 @@
    },
    "KG":{
       "id":1527747,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -9369,7 +9369,7 @@
    },
    "KH":{
       "id":1831722,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1655842",
             "adminCode1":"00",
@@ -9425,25 +9425,25 @@
    },
    "KI":{
       "id":4030945,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "KM":{
       "id":921929,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "KN":{
       "id":3575174,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "KP":{
       "id":1873107,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -9499,7 +9499,7 @@
    },
    "KR":{
       "id":1835841,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1873107",
             "adminCode1":"00",
@@ -9521,7 +9521,7 @@
    },
    "KW":{
       "id":285570,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"99237",
             "adminCode1":"00",
@@ -9560,13 +9560,13 @@
    },
    "KY":{
       "id":3580718,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "KZ":{
       "id":1522867,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -9656,7 +9656,7 @@
    },
    "LA":{
       "id":1655842,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1831722",
             "adminCode1":"00",
@@ -9746,7 +9746,7 @@
    },
    "LB":{
       "id":272103,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"294640",
             "adminCode1":"00",
@@ -9785,13 +9785,13 @@
    },
    "LC":{
       "id":3576468,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "LI":{
       "id":3042058,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -9830,13 +9830,13 @@
    },
    "LK":{
       "id":1227603,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "LR":{
       "id":2275384,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2420477",
             "adminCode1":"00",
@@ -9892,7 +9892,7 @@
    },
    "LS":{
       "id":932692,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"953987",
             "adminCode1":"00",
@@ -9914,7 +9914,7 @@
    },
    "LT":{
       "id":597427,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"630336",
             "adminCode1":"00",
@@ -9987,7 +9987,7 @@
    },
    "LU":{
       "id":2960313,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2802361",
             "adminCode1":"00",
@@ -10043,7 +10043,7 @@
    },
    "LV":{
       "id":458258,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"630336",
             "adminCode1":"00",
@@ -10116,7 +10116,7 @@
    },
    "LY":{
       "id":2215636,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2589581",
             "adminCode1":"00",
@@ -10223,7 +10223,7 @@
    },
    "MA":{
       "id":2542007,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2589581",
             "adminCode1":"00",
@@ -10279,7 +10279,7 @@
    },
    "MC":{
       "id":2993457,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3017382",
             "adminCode1":"00",
@@ -10301,7 +10301,7 @@
    },
    "MD":{
       "id":617790,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"798549",
             "adminCode1":"00",
@@ -10340,7 +10340,7 @@
    },
    "ME":{
       "id":3194884,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"783754",
             "adminCode1":"00",
@@ -10430,7 +10430,7 @@
    },
    "MF":{
       "id":3578421,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"7609695",
             "adminCode1":"00",
@@ -10452,19 +10452,19 @@
    },
    "MG":{
       "id":1062947,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MH":{
       "id":2080185,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MK":{
       "id":718075,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"783754",
             "adminCode1":"00",
@@ -10554,7 +10554,7 @@
    },
    "ML":{
       "id":2453866,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2589581",
             "adminCode1":"00",
@@ -10678,7 +10678,7 @@
    },
    "MM":{
       "id":1327865,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1210997",
             "adminCode1":"00",
@@ -10768,7 +10768,7 @@
    },
    "MN":{
       "id":2029969,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -10807,25 +10807,25 @@
    },
    "MO":{
       "id":1821275,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MP":{
       "id":4041468,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MQ":{
       "id":3570311,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MR":{
       "id":2378080,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2589581",
             "adminCode1":"00",
@@ -10898,31 +10898,31 @@
    },
    "MS":{
       "id":3578097,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MT":{
       "id":2562770,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MU":{
       "id":934292,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MV":{
       "id":1282028,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "MW":{
       "id":927384,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1036973",
             "adminCode1":"00",
@@ -10978,7 +10978,7 @@
    },
    "MX":{
       "id":3996063,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3582678",
             "adminCode1":"00",
@@ -11034,7 +11034,7 @@
    },
    "MY":{
       "id":1733045,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1820814",
             "adminCode1":"00",
@@ -11090,7 +11090,7 @@
    },
    "MZ":{
       "id":1036973,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"927384",
             "adminCode1":"00",
@@ -11197,7 +11197,7 @@
    },
    "NA":{
       "id":3355338,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3351879",
             "adminCode1":"00",
@@ -11270,13 +11270,13 @@
    },
    "NC":{
       "id":2139685,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "NE":{
       "id":2440476,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2589581",
             "adminCode1":"00",
@@ -11400,13 +11400,13 @@
    },
    "NF":{
       "id":2155115,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "NG":{
       "id":2328926,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2395170",
             "adminCode1":"00",
@@ -11479,7 +11479,7 @@
    },
    "NI":{
       "id":3617476,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3624060",
             "adminCode1":"00",
@@ -11518,7 +11518,7 @@
    },
    "NL":{
       "id":2750405,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2802361",
             "adminCode1":"00",
@@ -11557,7 +11557,7 @@
    },
    "NO":{
       "id":3144096,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"660013",
             "adminCode1":"00",
@@ -11613,7 +11613,7 @@
    },
    "NP":{
       "id":1282988,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1814991",
             "adminCode1":"00",
@@ -11652,25 +11652,25 @@
    },
    "NR":{
       "id":2110425,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "NU":{
       "id":4036232,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "NZ":{
       "id":2186224,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "OM":{
       "id":286963,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"102358",
             "adminCode1":"00",
@@ -11726,7 +11726,7 @@
    },
    "PA":{
       "id":3703430,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3686110",
             "adminCode1":"00",
@@ -11765,7 +11765,7 @@
    },
    "PE":{
       "id":3932488,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3923057",
             "adminCode1":"00",
@@ -11855,13 +11855,13 @@
    },
    "PF":{
       "id":4030656,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "PG":{
       "id":2088628,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1643084",
             "adminCode1":"00",
@@ -11883,13 +11883,13 @@
    },
    "PH":{
       "id":1694008,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "PK":{
       "id":1168579,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1149361",
             "adminCode1":"00",
@@ -11962,7 +11962,7 @@
    },
    "PL":{
       "id":798544,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"630336",
             "adminCode1":"00",
@@ -12086,25 +12086,25 @@
    },
    "PM":{
       "id":3424932,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "PN":{
       "id":4030699,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "PR":{
       "id":4566966,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "PS":{
       "id":6254930,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"294640",
             "adminCode1":"00",
@@ -12143,7 +12143,7 @@
    },
    "PT":{
       "id":2264397,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2510769",
             "adminCode1":"00",
@@ -12165,13 +12165,13 @@
    },
    "PW":{
       "id":1559582,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "PY":{
       "id":3437598,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3865483",
             "adminCode1":"00",
@@ -12227,7 +12227,7 @@
    },
    "QA":{
       "id":289688,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"102358",
             "adminCode1":"00",
@@ -12249,13 +12249,13 @@
    },
    "RE":{
       "id":935317,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "RO":{
       "id":798549,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"732800",
             "adminCode1":"00",
@@ -12345,7 +12345,7 @@
    },
    "RS":{
       "id":6290252,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"783754",
             "adminCode1":"00",
@@ -12503,7 +12503,7 @@
    },
    "RU":{
       "id":2017370,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"587116",
             "adminCode1":"00",
@@ -12746,7 +12746,7 @@
    },
    "RW":{
       "id":49518,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"433561",
             "adminCode1":"00",
@@ -12819,7 +12819,7 @@
    },
    "SA":{
       "id":102358,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"99237",
             "adminCode1":"00",
@@ -12943,19 +12943,19 @@
    },
    "SB":{
       "id":2103350,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "SC":{
       "id":241170,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "SD":{
       "id":366755,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"239880",
             "adminCode1":"00",
@@ -13079,7 +13079,7 @@
    },
    "SE":{
       "id":2661886,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"660013",
             "adminCode1":"00",
@@ -13118,19 +13118,19 @@
    },
    "SG":{
       "id":1880251,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "SH":{
       "id":3370751,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "SI":{
       "id":3190538,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -13203,11 +13203,11 @@
    },
    "SJ":{
       "id":607072,
-      "neighbours": []
+      "neighbors": []
    },
    "SK":{
       "id":3057568,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2782113",
             "adminCode1":"00",
@@ -13297,7 +13297,7 @@
    },
    "SL":{
       "id":2403846,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2420477",
             "adminCode1":"00",
@@ -13336,7 +13336,7 @@
    },
    "SM":{
       "id":3168068,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3175395",
             "adminCode1":"00",
@@ -13358,7 +13358,7 @@
    },
    "SN":{
       "id":2245662,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2413451",
             "adminCode1":"00",
@@ -13448,7 +13448,7 @@
    },
    "SO":{
       "id":51537,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"223816",
             "adminCode1":"00",
@@ -13504,7 +13504,7 @@
    },
    "SR":{
       "id":3382998,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3469034",
             "adminCode1":"00",
@@ -13560,7 +13560,7 @@
    },
    "SS":{
       "id":7909807,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"239880",
             "adminCode1":"00",
@@ -13667,13 +13667,13 @@
    },
    "ST":{
       "id":2410758,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "SV":{
       "id":3585968,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3595528",
             "adminCode1":"00",
@@ -13712,7 +13712,7 @@
    },
    "SX":{
       "id":7609695,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3578421",
             "adminCode1":"00",
@@ -13734,7 +13734,7 @@
    },
    "SY":{
       "id":163843,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"99237",
             "adminCode1":"00",
@@ -13824,7 +13824,7 @@
    },
    "SZ":{
       "id":934841,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1036973",
             "adminCode1":"00",
@@ -13863,13 +13863,13 @@
    },
    "TC":{
       "id":3576916,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TD":{
       "id":2434508,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2233387",
             "adminCode1":"00",
@@ -13976,13 +13976,13 @@
    },
    "TF":{
       "id":1546748,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TG":{
       "id":2363686,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2395170",
             "adminCode1":"00",
@@ -14038,7 +14038,7 @@
    },
    "TH":{
       "id":1605651,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1831722",
             "adminCode1":"00",
@@ -14111,7 +14111,7 @@
    },
    "TJ":{
       "id":1220409,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1149361",
             "adminCode1":"00",
@@ -14184,13 +14184,13 @@
    },
    "TK":{
       "id":4031074,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TL":{
       "id":1966436,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1643084",
             "adminCode1":"00",
@@ -14212,7 +14212,7 @@
    },
    "TM":{
       "id":1218197,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1149361",
             "adminCode1":"00",
@@ -14285,7 +14285,7 @@
    },
    "TN":{
       "id":2464461,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"2589581",
             "adminCode1":"00",
@@ -14324,13 +14324,13 @@
    },
    "TO":{
       "id":4032283,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TR":{
       "id":298795,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"174982",
             "adminCode1":"00",
@@ -14471,25 +14471,25 @@
    },
    "TT":{
       "id":3573591,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TV":{
       "id":2110297,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TW":{
       "id":1668284,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "TZ":{
       "id":149590,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"433561",
             "adminCode1":"00",
@@ -14630,7 +14630,7 @@
    },
    "UA":{
       "id":690791,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"630336",
             "adminCode1":"00",
@@ -14754,7 +14754,7 @@
    },
    "UG":{
       "id":226074,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"203312",
             "adminCode1":"00",
@@ -14844,13 +14844,13 @@
    },
    "UM":{
       "id":5854968,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "US":{
       "id":6252001,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"6251999",
             "adminCode1":"00",
@@ -14906,7 +14906,7 @@
    },
    "UY":{
       "id":3439705,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3865483",
             "adminCode1":"00",
@@ -14945,7 +14945,7 @@
    },
    "UZ":{
       "id":1512440,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1149361",
             "adminCode1":"00",
@@ -15035,7 +15035,7 @@
    },
    "VA":{
       "id":3164670,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3175395",
             "adminCode1":"00",
@@ -15057,13 +15057,13 @@
    },
    "VC":{
       "id":3577815,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "VE":{
       "id":3625428,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3469034",
             "adminCode1":"00",
@@ -15119,19 +15119,19 @@
    },
    "VG":{
       "id":3577718,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "VI":{
       "id":4796775,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "VN":{
       "id":1562822,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"1831722",
             "adminCode1":"00",
@@ -15187,25 +15187,25 @@
    },
    "VU":{
       "id":2134431,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "WF":{
       "id":4034749,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "WS":{
       "id":4034894,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "XK":{
       "id":831053,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"783754",
             "adminCode1":"00",
@@ -15278,7 +15278,7 @@
    },
    "YE":{
       "id":69543,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"286963",
             "adminCode1":"00",
@@ -15317,13 +15317,13 @@
    },
    "YT":{
       "id":1024031,
-      "neighbours":[
+      "neighbors":[
 
       ]
    },
    "ZA":{
       "id":953987,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"933860",
             "adminCode1":"00",
@@ -15430,7 +15430,7 @@
    },
    "ZM":{
       "id":895949,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"3351879",
             "adminCode1":"00",
@@ -15554,7 +15554,7 @@
    },
    "ZW":{
       "id":878675,
-      "neighbours":[
+      "neighbors":[
          {
             "countryId":"933860",
             "adminCode1":"00",
