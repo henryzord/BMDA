@@ -140,7 +140,7 @@ class GraphicalModel(Graph):
             val = variable.sample(evidence)
             values[variable.name] = val
 
-        ordered_values = sorted(values.items(), key=lambda x: x[0])
+        ordered_values = sorted(list(values.items()), key=lambda x: x[0])
         names, sampled = zip(*ordered_values)
 
         individual.colors = list(sampled)

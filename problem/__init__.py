@@ -1,15 +1,15 @@
 import copy
 import itertools as it
 import operator as op
+from functools import reduce
 from string import ascii_lowercase
 
+import cartopy
+import cartopy.crs as ccrs
+import cartopy.io.shapereader as shpreader
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
-from functools import reduce
-import pandas as pd
-import json
-import os
 
 
 class Graph(object):
@@ -46,13 +46,13 @@ class ModelGraph(Problem):
         """
         Constructor for MGraph class.
 
+        :type available_colors: list
+        :param available_colors: a list with all available colors for this problem.
         :type connections: numpy.ndarray
         :param connections: A boolean matrix of size n_nodes x n_nodes, where 0 indicates no relation
             and 1 indicates a connection between the nodes.
-        :type colors: list, numpy.ndarray
+        :type colors: list
         :param colors: a list where each entry is the color for that node
-        :type available_colors: list
-        :param available_colors: a list with all available colors for this problem.
         """
         super(ModelGraph, self).__init__(variable_names=node_names, available_values=available_colors)
 
@@ -178,40 +178,72 @@ class ModelGraph(Problem):
 
 
 class WorldMap(ModelGraph):
-    def __init__(self, colors):
+    def __init__(self, node_names, available_colors, connections, colors):
         """
 
         :param colors: Support for variables. Note that this class assumes the same support for all variables.
         """
-        __location__ = os.path.realpath(
-            os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-        neighbors = json.load(
-            open(os.path.join(__location__, 'neighbors.json'), 'r', encoding='utf-8')
-        )
-        countries = pd.read_csv(os.path.join(__location__, 'countries.csv'), delimiter=',', dtype=np.object, na_filter=False)
-
-        n_countries = len(countries)
-
-        countries.sort_values(by='NAME', inplace=True)
-        connections = pd.DataFrame(index=countries['NAME'], columns=countries['NAME'], dtype=np.int32)
-
-        a2_to_name = dict(list(zip(countries['ISO_A2'].tolist(), countries['NAME'].tolist())))
-
-        for ISO_A2, content in neighbors.items():
-            host = a2_to_name[ISO_A2]
-            for neighbor in content['neighbors']:
-                invited = a2_to_name[neighbor['countryCode']]
-                connections[host][invited] = 1
-                connections[invited][host] = 1
-
-        connections.to_csv('connections.csv')
         super().__init__(
-            node_names=country_names,
-            available_colors=colors,
+            node_names=node_names,
+            available_colors=available_colors,
             connections=connections,
-            colors=np.repeat(colors[0], n_countries)
+            colors=colors
         )
+
+    def __copy__(self):
+        _copy = self.__class__(
+            copy.copy(self.node_names), copy.copy(self.available_colors),
+            copy.copy(self.connections), copy.copy(self._colors)
+        )
+        return _copy
+
+    def __deepcopy__(self, memo):
+        _copy = self.__class__(
+            copy.deepcopy(self.node_names), copy.deepcopy(self.available_colors),
+            copy.deepcopy(self.connections), copy.deepcopy(self._colors)
+        )
+
+        return _copy
+
+    def plot(self, title=''):
+        plt.figure(figsize=(600, 400))
+        plt.title(title)
+
+        ax = plt.axes(projection=ccrs.PlateCarree())
+        ax.add_feature(cartopy.feature.OCEAN)
+        ax.add_feature(cartopy.feature.BORDERS, linestyle='-', alpha=1.0)
+
+        # ax.add_feature(cartopy.feature.LAND)
+        # ax.add_feature(cartopy.feature.COASTLINE)
+        # ax.add_feature(cartopy.feature.LAKES, alpha=0.95)
+        # ax.add_feature(cartopy.feature.RIVERS)
+
+        shpfilename = shpreader.natural_earth(
+            resolution='110m',
+            category='cultural',
+            name='admin_0_countries'
+        )
+
+        reader = shpreader.Reader(shpfilename)
+        countries = list(reader.records())
+
+        countries = dict(zip(
+            list(map(lambda x: x.attributes['ISO_A2'], countries)), countries
+        ))
+
+        for node_name, color in zip(self.node_names, self.colors):
+                try:
+                    ax.add_geometries(
+                        countries[node_name].geometry, ccrs.PlateCarree(),
+                        # facecolor=(0, 0, 1),
+                        facecolor=color,
+                        label=node_name
+                    )
+                except KeyError:
+                    pass
+
+        plt.show()
 
     @classmethod
     def generate_random(cls, n_nodes, available_colors, prob=0.25):
