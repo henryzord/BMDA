@@ -10,6 +10,8 @@ import cartopy.io.shapereader as shpreader
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
+import pickle
+import os
 
 
 class Graph(object):
@@ -219,29 +221,16 @@ class WorldMap(ModelGraph):
         # ax.add_feature(cartopy.feature.LAKES, alpha=0.95)
         # ax.add_feature(cartopy.feature.RIVERS)
 
-        shpfilename = shpreader.natural_earth(
-            resolution='110m',
-            category='cultural',
-            name='admin_0_countries'
-        )
-
-        reader = shpreader.Reader(shpfilename)
-        countries = list(reader.records())
-
-        countries = dict(zip(
-            list(map(lambda x: x.attributes['ISO_A2'], countries)), countries
-        ))
+        __location__ = os.path.realpath(
+            os.path.join(os.getcwd(), os.path.dirname(__file__)))
+        countries = pickle.load(open(os.path.join(__location__, 'country_geometries.bin'), 'rb'))
 
         for node_name, color in zip(self.node_names, self.colors):
-                try:
-                    ax.add_geometries(
-                        countries[node_name].geometry, ccrs.PlateCarree(),
-                        # facecolor=(0, 0, 1),
-                        facecolor=color,
-                        label=node_name
-                    )
-                except KeyError:
-                    pass
+                ax.add_geometries(
+                    countries[node_name].geometry, ccrs.PlateCarree(),
+                    facecolor=color,
+                    label=node_name
+                )
 
         plt.show()
 

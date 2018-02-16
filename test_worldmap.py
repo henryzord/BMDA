@@ -28,17 +28,17 @@ __author__ = 'Henry Cagnini'
 
 
 def main():
-    n_colors = 2  # number of colors to use in the graph
-    n_individuals = 10  # size of the population
+    n_colors = 16  # number of colors to use in the graph
+    n_individuals = 50  # size of the population
     seed = 6  # use None for random or any integer for predetermined randomization
-    n_generations = 2  # max iterations to search for optimum
+    n_generations = 10  # max iterations to search for optimum
 
     random.seed(seed)
     np.random.seed(seed)
 
     available_colors = list(map(
         to_hex,
-        cm.viridis(np.linspace(0.5, 1., n_colors))
+        cm.viridis(np.linspace(0., 1., n_colors))
     ))
 
     __location__ = os.path.realpath(
@@ -77,4 +77,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # plot_worldmap()

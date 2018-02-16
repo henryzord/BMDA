@@ -49,7 +49,7 @@ class Variable(object):
         picked = self.probs.index[np.random.choice(n_index)]
 
         summed = np.sum(self.probs.values.ravel())
-        rest = 1. - summed
+        rest = abs(1. - summed)
         if rest > 0:
             self.probs.loc[[picked]] += rest
 
@@ -68,6 +68,8 @@ class Variable(object):
             p = p_raw.values.ravel() / p_raw.values.ravel().sum()
             rest = 1. - np.sum(p)
             p[np.random.choice(len(p))] += rest
+
+            p = np.clip(p, a_min=0., a_max=1.)
         else:
             a = self.probs.index.values
             p = self.probs.values.ravel()
@@ -106,7 +108,7 @@ class Variable(object):
 
         self.parent = parent
 
-        self.probs /= np.sum(self.probs)
+        self.probs = (self.probs / np.sum(self.probs)).clip(0., 1.)
 
         self.__add_rest__()
 
