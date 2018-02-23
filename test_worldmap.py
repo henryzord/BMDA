@@ -12,23 +12,21 @@ This script uses code and information from
 https://github.com/FnTm/country-neighbors
 """
 
+import os
+import pickle
 import random
 
+import networkx as nx
 import numpy as np
 import pandas as pd
 from matplotlib import cm
 from matplotlib import pyplot as plt
 from matplotlib.colors import to_hex
+from plotly.graph_objs import *
+from plotly.offline import plot
 
 from BMDA import BMDA
 from problem import WorldMap
-import os
-
-from plotly.offline import plot
-import plotly.plotly as py
-from plotly.graph_objs import *
-import networkx as nx
-import pickle
 
 __author__ = 'Henry Cagnini'
 
@@ -74,18 +72,31 @@ def main():
         n_generations=n_generations
     )
 
+    pickle.dump(best, open('best.bin', 'wb'))
+    pickle.dump(gm, open('gm.bin', 'wb'))
+
     print('best individual fitness:', best.fitness)
-    G.plot(title='Problem')
+    # G.plot(title='Problem')
     best.plot(title='Best individual')
-    gm.plot(title='Graphical Model')
+    # gm.plot(title='Graphical Model')
     plt.show()
 
 
-def plotly_plotting():
+def plotly_plotting(best, gm):
+    """
+
+    :param gm:
+    :type gm: GraphicalModel.GraphicalModel
+    :type best: WorldMap
+    :param best:
+    :return:
+    """
+
     __location__ = os.path.realpath(
         os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-    connections = pd.read_csv(
+    # gt stands for ground truth connections, i.e. the real connections of a country to its neighbors
+    gt_connections = pd.read_csv(
         os.path.join(__location__, 'problem', 'country_connections.csv'),
         index_col=0,
         encoding='utf-8',
@@ -100,50 +111,97 @@ def plotly_plotting():
         na_values=[''],
     )
 
-    nonzero = []
-    for index, content in connections.iterrows():
-        for column in connections.columns:
-            if connections.at[index, column] != 0:
-                nonzero += [(index, column)]
-
-    G = nx.Graph(nonzero)  # type: nx.Graph
-
-    __location__ = os.path.realpath(
-        os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    countries = pickle.load(open(os.path.join(__location__, 'problem', 'country_geometries.bin'), 'rb'))
+    geometries = pickle.load(open(os.path.join(__location__, 'problem', 'country_geometries.bin'), 'rb'))
 
     isoa2_to_name = dict(list(zip(country_codes['ISO_A2'], country_codes['NAME'])))
 
-    for node_name in G.nodes:
-        G.nodes[node_name]['pos'] = (countries[node_name].geometry.centroid.x, countries[node_name].geometry.centroid.y)
+    node_names = best.node_names
 
-    # pos = nx.get_node_attributes(G, 'pos')
+    gt_nonzero = []
+    for index, content in gt_connections.iterrows():
+        for column in gt_connections.columns:
+            if gt_connections.at[index, column] != 0:
+                gt_nonzero += [(index, column)]
 
-    edge_trace = Scatter(
-        x=[],
-        y=[],
+    gt_G = nx.Graph(gt_nonzero)  # type: nx.Graph
+    gt_G.add_nodes_from(node_names)
+
+    # best stands for the best individual found during the evolutionary process
+    best_G = nx.DiGraph()
+
+    parents = dict()
+    for variable in gm.variables:
+        if variable.parent is not None:
+            parents[variable.name] = variable.parent
+
+    best_G.add_nodes_from(node_names)
+    best_G.add_edges_from(
+        map(lambda x: x[::-1], parents.items())
+    )
+
+    for node_name in node_names:
+        gt_G.nodes[node_name]['pos'] = (geometries[node_name].geometry.centroid.x, geometries[node_name].geometry.centroid.y)
+        best_G.nodes[node_name]['pos'] = (geometries[node_name].geometry.centroid.x, geometries[node_name].geometry.centroid.y)
+
+    gt_edges = dict(x=[], y=[])
+    for edge in gt_G.edges():
+        x0, y0 = gt_G.node[edge[0]]['pos']
+        x1, y1 = gt_G.node[edge[1]]['pos']
+        gt_edges['x'] += [x0, x1, None]
+        gt_edges['y'] += [y0, y1, None]
+
+    gt_edges = Scatter(
+        name='ground truth',
+        x=gt_edges['x'],
+        y=gt_edges['y'],
+        line=Line(width=0.5, color='#888'),
+        hoverinfo='none',
+        mode='lines',
+        visible='legendonly'
+    )
+
+    best_edges = dict(x=[], y=[])
+    neighbors = {x: [] for x in node_names}
+    for edge in best_G.edges():
+        x0, y0 = best_G.node[edge[0]]['pos']
+        x1, y1 = best_G.node[edge[1]]['pos']
+        best_edges['x'] += [x0, x1, None]
+        best_edges['y'] += [y0, y1, None]
+
+        neighbors[edge[0]] += [isoa2_to_name[edge[1]]]
+        neighbors[edge[1]] += [isoa2_to_name[edge[0]]]
+
+    best_edges = Scatter(
+        name='best solution',
+        x=best_edges['x'],
+        y=best_edges['y'],
         line=Line(width=0.5, color='#888'),
         hoverinfo='none',
         mode='lines'
     )
 
-    for edge in G.edges():
-        x0, y0 = G.node[edge[0]]['pos']
-        x1, y1 = G.node[edge[1]]['pos']
-        edge_trace['x'] += [x0, x1, None]
-        edge_trace['y'] += [y0, y1, None]
+    country_x = []
+    country_y = []
+    country_name = []
+    country_colors = best.colors
+    for node in best_G.nodes():
+        country_x += [best_G.node[node]['pos'][0]]
+        country_y += [best_G.node[node]['pos'][1]]
+
+        country_name += [isoa2_to_name[node] + '<br>connected to:<br>' + '<br>'.join(neighbors[node])]
 
     node_trace = Scatter(
-        x=[],
-        y=[],
-        text=[],
+        name='countries',
+        x=country_x,
+        y=country_y,
+        text=country_name,
         mode='markers',
         hoverinfo='text',
         marker=Marker(
-            showscale=True,
+            showscale=False,
             colorscale='Viridis',
             reversescale=True,
-            color=[],
+            color=country_colors,
             size=10,
             colorbar=dict(
                 thickness=15,
@@ -155,20 +213,9 @@ def plotly_plotting():
         )
     )
 
-    for node in G.nodes():
-        x, y = G.node[node]['pos']
-        node_trace['x'].append(x)
-        node_trace['y'].append(y)
-
-    for node, adjacencies in G.adjacency():
-        node_trace['marker']['color'].append(len(adjacencies))
-        node_info = isoa2_to_name[node] + '<br>' + '# of connections: ' + str(len(adjacencies))
-        node_trace['text'].append(node_info)
-
     layout = Layout(
         title='<br>Network graph made with Python',
         titlefont=dict(size=16),
-        # showlegend=False,
         showlegend=True,
         hovermode='closest',
         margin=dict(b=20, l=5, r=5, t=40),
@@ -185,11 +232,8 @@ def plotly_plotting():
         yaxis=YAxis(showgrid=False, zeroline=False, showticklabels=False)
     )
 
-    # traces = Data([edge_trace, node_trace], name='ground truth')
-    traces = Data([edge_trace, node_trace], name='ground truth')
-
     fig = Figure(
-        data=traces,
+        data=[gt_edges, best_edges, node_trace],
         layout=layout
     )
 
@@ -198,4 +242,6 @@ def plotly_plotting():
 
 if __name__ == '__main__':
     # main()
-    plotly_plotting()
+    _gm = pickle.load(open('gm.bin', 'rb'))
+    _best = pickle.load(open('best.bin', 'rb'))
+    plotly_plotting(_best, _gm)
