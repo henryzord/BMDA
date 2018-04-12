@@ -31,14 +31,9 @@ from problem import WorldMap
 __author__ = 'Henry Cagnini'
 
 
-def main():
-    n_colors = 16  # number of colors to use in the graph
-    n_individuals = 50  # size of the population
-    seed = 6  # use None for random or any integer for predetermined randomization
-    n_generations = 10  # max iterations to search for optimum
-
-    random.seed(seed)
-    np.random.seed(seed)
+def main(n_colors, n_individuals, n_generations, random_state=None):
+    random.seed(random_state)
+    np.random.seed(random_state)
 
     available_colors = list(map(
         to_hex,
@@ -72,8 +67,8 @@ def main():
         n_generations=n_generations
     )
 
-    pickle.dump(best, open('best.bin', 'wb'))
-    pickle.dump(gm, open('gm.bin', 'wb'))
+    # pickle.dump(best, open('best.bin', 'wb'))
+    # pickle.dump(gm, open('gm.bin', 'wb'))
 
     print('best individual fitness:', best.fitness)
     # G.plot(title='Problem')
@@ -241,7 +236,12 @@ def plotly_plotting(best, gm):
 
 
 if __name__ == '__main__':
-    # main()
-    _gm = pickle.load(open('gm.bin', 'rb'))
-    _best = pickle.load(open('best.bin', 'rb'))
-    plotly_plotting(_best, _gm)
+    _n_colors = 16  # number of colors to use in the graph
+    _n_individuals = 50  # size of the population
+    _random_state = 6  # use None for random or any integer for predetermined randomization
+    _n_generations = 10  # max iterations to search for optimum
+
+    main(n_colors=_n_colors, n_individuals=_n_individuals, n_generations=_n_generations, random_state=_random_state)
+    # _gm = pickle.load(open('gm.bin', 'rb'))
+    # _best = pickle.load(open('best.bin', 'rb'))
+    # plotly_plotting(_best, _gm)
