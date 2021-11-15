@@ -18,6 +18,15 @@ import cartopy.io.shapereader as shpreader
 import matplotlib.pyplot as plt
 import json
 import pandas as pd
+import random
+import numpy as np
+from BMDA import BMDA
+from problem import ModelGraph, WorldMap
+from matplotlib import pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import to_hex
+
+__author__ = 'Henry Cagnini'
 
 
 def plot_worldmap():
@@ -50,7 +59,7 @@ def plot_worldmap():
     pd.DataFrame(
         data,
         columns=['name', 'ISO_A2', 'ISO_A3', 'UN_A3']
-    ).to_csv('countries.csv', sep=',', quotechar="\"", index=False)
+    ).to_csv('countries.csv', sep=',', quotechar="\"", index=False, encoding='utf-8')
 
     for country in countries:
         if country.attributes['ADM0_A3'] == 'USA':
@@ -64,16 +73,6 @@ def plot_worldmap():
                              )
 
     plt.show()
-
-import random
-import numpy as np
-from BMDA import BMDA
-from problem import ModelGraph, WorldMap
-from matplotlib import pyplot as plt
-from matplotlib import cm
-from matplotlib.colors import to_hex
-
-__author__ = 'Henry Cagnini'
 
 
 def main():
@@ -109,5 +108,6 @@ def main():
 
 
 if __name__ == '__main__':
+    # plot_worldmap()
     main()
 
